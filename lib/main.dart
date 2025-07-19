@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wakeup/screens/firstsplash/firstsplash.dart';
 import 'package:wakeup/screens/stopwatch/StopWatchScreen.dart';
 
 void main() {
@@ -13,7 +14,7 @@ class ClockApp extends StatelessWidget {
     return MaterialApp(
       title: 'Clock App',
       debugShowCheckedModeBanner: false,
-      home: const StopwatchScreen(),
+      home: const Firstsplash(),
     );
   }
 }
