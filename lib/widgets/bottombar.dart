@@ -19,10 +19,10 @@ class _BottombarState extends State<Bottombar>{
     child: BottomNavigationBar(
       backgroundColor: Colors.white,
       items: const [
-        BottomNavigationBarItem(icon: Icon(Icons.timer, color: Colors.black), label: ''),
-        BottomNavigationBarItem(icon: Icon(Icons.alarm, color: Colors.black), label: ''),
-        BottomNavigationBarItem(icon: Icon(Icons.hourglass_bottom, color: Colors.black), label: ''),
-        BottomNavigationBarItem(icon: Icon(Icons.public, color: Colors.black), label: ''),
+        BottomNavigationBarItem(icon: Icon(Icons.timer,size: 34, color: Colors.black), label: ''),
+        BottomNavigationBarItem(icon: Icon(Icons.alarm, size:34,color:  Colors.black), label: ''),
+        BottomNavigationBarItem(icon: Icon(Icons.hourglass_bottom,size: 34, color: Colors.black), label: ''),
+        BottomNavigationBarItem(icon: Icon(Icons.public,size: 34, color: Colors.black), label: ''),
       ],
     ),
   ),

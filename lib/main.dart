@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:wakeup/screens/firstsplash/firstsplash.dart';
 import 'package:wakeup/screens/stopwatch/StopWatchScreen.dart';
+import 'package:wakeup/screens/universaltime/universaltime.dart';
+import 'package:timezone/data/latest.dart' as tz;
 
 void main() {
+  tz.initializeTimeZones();
   runApp(const ClockApp());
 }
 
@@ -14,7 +17,7 @@ class ClockApp extends StatelessWidget {
     return MaterialApp(
       title: 'Clock App',
       debugShowCheckedModeBanner: false,
-      home: const Firstsplash(),
+      home: const Universaltime(),
     );
   }
 }
