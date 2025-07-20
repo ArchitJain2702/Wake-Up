@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:wakeup/model/timers.dart';
+import 'package:wakeup/screens/timer/runningtimer.dart';
 import 'package:wakeup/screens/timer/settimer.dart';
 import 'package:wakeup/widgets/bottombar.dart';
 import 'package:wakeup/widgets/header.dart';
@@ -100,7 +101,6 @@ class MaintimerpageState extends State<MainTimerPage> {
                         });
                       }
                     },
-
                     child: Icon(
                       Icons.drive_file_rename_outline,
                       size: 22,
@@ -109,6 +109,19 @@ class MaintimerpageState extends State<MainTimerPage> {
                   ),
                   SizedBox(width: 20),
                   GestureDetector(
+                    onTap: () async {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => CustomTimerScreen(
+                            timerName: timers[index].title,
+                            hours: timers[index].hours,
+                            minutes: timers[index].minutes,
+                            seconds: timers[index].seconds,
+                          ),
+                        ),
+                      );
+                    },
                     child: Icon(
                       Icons.play_arrow,
                       size: 42,
