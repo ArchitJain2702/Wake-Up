@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wakeup/screens/timer/warningscreen.dart';
 import 'package:wakeup/widgets/bottombar.dart';
 import 'dart:async';
 
@@ -32,6 +33,11 @@ class CustomTimerScreenState extends State<CustomTimerScreen> {
     _timer = Timer.periodic(const Duration(seconds: 1), (_) {
       if (totalSeconds == 0) {
         _timer?.cancel();
+        if(mounted) {
+          Navigator.of(context).pushReplacement(
+            MaterialPageRoute(builder: (_) => Alarmscreen()),
+          );
+        }
       } else {
         setState(() {
           totalSeconds--;

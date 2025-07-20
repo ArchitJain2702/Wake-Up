@@ -16,7 +16,7 @@ void addGlobalTimer(TimerItems timer) {
 
 // Global list of timers accessible from anywhere
 List<TimerItems> globalTimers = [
- TimerItems(title: 'fuckyou', seconds: 4, minutes:8, hours: 0),
+ TimerItems(title: 'fuckyou', seconds: 2, minutes:0, hours: 0),
   TimerItems(title: 'fuckyou2', seconds: 4, minutes:8, hours: 0),
   TimerItems(title: 'fuckyou3', seconds: 4, minutes:8, hours: 0),
 ];
