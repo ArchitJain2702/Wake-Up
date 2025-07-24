@@ -1,8 +1,8 @@
 class TimerItems {
-  final String title;
-  final int seconds;
-  final int minutes;
-  final int hours;
+   String title;
+   int seconds;
+   int minutes;
+   int hours;
   TimerItems({
     required this.title,
     required this.seconds,

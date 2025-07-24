@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:wakeup/screens/alarm/mainalarmppage.dart';
+import 'package:wakeup/screens/alarm/alarmlistscreen.dart';
 import 'package:wakeup/screens/stopwatch/StopWatchScreen.dart';
 import 'package:wakeup/screens/timer/maintimerpage.dart';
 import 'package:wakeup/screens/universaltime/universaltime.dart';
@@ -29,7 +29,7 @@ class BottombarState extends State<Bottombar> {
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => MainAlarmPage()),
+                    MaterialPageRoute(builder: (context) => AlarmListScreen()),
                   );
                 },
                 child: Icon(Icons.alarm, size: 34, color: Colors.black),
