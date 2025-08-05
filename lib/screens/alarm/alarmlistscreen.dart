@@ -1,15 +1,10 @@
 import 'package:alarm/alarm.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:wakeup/model/alarm.dart';
 import 'package:wakeup/screens/alarm/editalar.dart';
 import 'package:wakeup/screens/alarm/setalarm.dart';
-import 'package:wakeup/setting/onemoretryonflutternotification.dart';
 import 'package:wakeup/widgets/bottombar.dart';
 import 'package:wakeup/widgets/header.dart';
-
-
-
 
 class AlarmListScreen extends StatefulWidget {
   const AlarmListScreen({super.key});
@@ -17,6 +12,7 @@ class AlarmListScreen extends StatefulWidget {
   @override
   State<AlarmListScreen> createState() => _AlarmListScreenState();
 }
+
 class _AlarmListScreenState extends State<AlarmListScreen> {
   @override
   Widget build(BuildContext context) {
@@ -109,16 +105,25 @@ class _AlarmListScreenState extends State<AlarmListScreen> {
         backgroundColor: const Color.fromARGB(255, 222, 51, 39),
         foregroundColor: Colors.white,
         onPressed: () async {
-          await Alarm.set(alarmSettings: alarmSettings);
-              print("Scheduled test notification!defrgjreg9jerg9regjherh9j5h9jt9yh5e9th5ethe5hdfjergrejghjtrhtehdjehjehje5hthdetihtehjth");
-              print("nextseven = ${nextseven.year}-${nextseven.month}-${nextseven.day} "
-      "${nextseven.hour}:${nextseven.minute}:${nextseven.second}");
-
-          print("specifieddate = ${specifieddate.year}-${specifieddate.month}-${specifieddate.day} "
-      "${specifieddate.hour}:${specifieddate.minute}:${specifieddate.second}");
-
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => SetAlarm(
+                alarm: AlarmItems(
+                  hours: 0,
+                  minutes: 0,
+                  seconds: 0,
+                  ampm: 'am',
+                  days: [],
+                  isActive: false,
+                  challenges: true,
+                ),
+              ),
+            ),
+          ).then((_) {
+            setState(() {});
+          });
         },
-
         child: const Icon(Icons.add, size: 30),
       ),
       bottomNavigationBar: Bottombar(),

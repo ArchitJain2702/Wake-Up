@@ -3,10 +3,11 @@ import 'package:wakeup/model/alarm.dart';
 import 'package:alarm/alarm.dart';
 import 'package:timezone/timezone.dart' as tz;
 import 'package:wakeup/setting/thinking.dart';
+import 'package:wakeup/widgets/challengeslist.dart';
+import 'package:wakeup/widgets/discriptionofchallenge.dart';
 
 class EditAlarm extends StatefulWidget {
   final AlarmItems alarm;
-
   const EditAlarm({super.key, required this.alarm});
 
   @override
@@ -19,7 +20,6 @@ class EditAlarmState extends State<EditAlarm> {
   late String ampm;
   late List<String> selectedDays;
   bool isChallengeEnabled = false;
-
   final List<String> daysOfWeek = [
     'Sun',
     'Mon',
@@ -214,7 +214,36 @@ class EditAlarmState extends State<EditAlarm> {
                 ],
               ),
               ElevatedButton(
-                onPressed: () {}, // You handle this
+                onPressed: () async {
+                  final result =
+                      await showModalBottomSheet<Map<String, dynamic>>(
+                        context: context,
+                        builder: (context) {
+                          return Padding(
+                            padding: EdgeInsets.all(0),
+                            child: ChallengeList(context),
+                          );
+                        },
+                      );
+
+                  if (result != null) {
+                    setState(() {
+                      isChallengeEnabled = true;
+
+                      // Convert string back to enum
+                      widget.alarm.challengename = ChallengeTypes.values
+                          .firstWhere(
+                            (e) =>
+                                e.toString().split('.').last.toLowerCase() ==
+                                result['challenge'].toString().toLowerCase(),
+                            orElse: () => ChallengeTypes.Maths,
+                          );
+
+                      widget.alarm.repetitions = result['repetitions'];
+                    });
+                  }
+                },
+                // You handle this
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.red.shade200,
                   foregroundColor: Colors.black,
@@ -224,6 +253,10 @@ class EditAlarmState extends State<EditAlarm> {
                 ),
                 child: Text('Set Challenge'),
               ),
+              ElevatedButton(
+                onPressed: (){},
+                 child: Text(widget.alarm.challengename.toString().split('.').last),
+                  ),
 
               Spacer(),
               // Save Button
@@ -232,13 +265,13 @@ class EditAlarmState extends State<EditAlarm> {
                 child: ElevatedButton(
                   onPressed: () async {
                     if (hours != 0) {
-                      widget.alarm.seconds = 0; // Assuming seconds are always 0
+                      widget.alarm.seconds = 0;
                       widget.alarm.minutes = minutes;
                       widget.alarm.hours = hours;
                       widget.alarm.days = selectedDays;
                       widget.alarm.ampm = ampm;
-                      widget.alarm.isActive =
-                          true; // Assuming alarm is active by default
+                      widget.alarm.isActive = true;
+                      widget.alarm.challenges = isChallengeEnabled;
                       if (ampm != 'am' && ampm != 'pm') {
                         ampm = 'am'; // or prompt the user
                       }

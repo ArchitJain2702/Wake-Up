@@ -233,6 +233,7 @@ class SetAlarmState extends State<SetAlarm> {
                       days: selectedDays,
                       ampm: ampm,
                       isActive: true,
+                      challenges: true
                     ));
                     Navigator.pop(context); // You handle saving
                   }, // You handle saving

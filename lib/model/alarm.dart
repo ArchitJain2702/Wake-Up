@@ -1,4 +1,7 @@
 import 'package:timezone/timezone.dart' as tz;
+
+enum ChallengeTypes { Maths, Memory, Focus, Reaction }
+
 class AlarmItems {
   int seconds;
   int minutes;
@@ -6,7 +9,10 @@ class AlarmItems {
   String ampm;
   List<String> days;
   bool isActive;
-  
+  bool challenges;
+  ChallengeTypes challengename;
+  int repetitions;
+
   AlarmItems({
     required this.seconds,
     required this.minutes,
@@ -14,6 +20,9 @@ class AlarmItems {
     required this.days,
     required this.ampm,
     this.isActive = true,
+    required this.challenges,
+    this.challengename = ChallengeTypes.Maths,
+    this.repetitions = 3,
   });
 }
 
@@ -29,6 +38,8 @@ List<AlarmItems> globalAlarms = [
     days: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'],
     ampm: 'am',
     isActive: true,
+    challenges: true,
+    challengename:ChallengeTypes.Memory
   ),
   AlarmItems(
     seconds: 30,
@@ -37,7 +48,6 @@ List<AlarmItems> globalAlarms = [
     days: ['Sat', 'Sun'],
     ampm: 'pm',
     isActive: true,
+    challenges: false,
   ),
 ];
-
-
