@@ -1,20 +1,20 @@
-import 'dart:math';
 import 'package:alarm/alarm.dart';
 import 'package:flutter/material.dart';
 import 'package:wakeup/widgets/mathchallenge.dart';
 
 class MathChallengeScreen extends StatefulWidget {
   final int totalQuestions;
+
   const MathChallengeScreen({
     super.key,
     required this.totalQuestions,
   });
 
   @override
-  State<MathChallengeScreen> createState() => MathChallengeScreenState();
+  State<MathChallengeScreen> createState() => _MathChallengeScreenState();
 }
 
-class MathChallengeScreenState extends State<MathChallengeScreen> {
+class _MathChallengeScreenState extends State<MathChallengeScreen> {
   final TextEditingController _answerController = TextEditingController();
   var challenge = generateMathChallenge();
   late int currentQuestion = 1;
@@ -22,130 +22,150 @@ class MathChallengeScreenState extends State<MathChallengeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.pink.shade50,
+      backgroundColor: Colors.grey.shade100,
       body: SafeArea(
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 24.0, vertical: 16),
+          padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 16),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const SizedBox(height: 8),
-
-              // Repetition count like "3/6 completed"
+              // Progress text
               Center(
                 child: Text(
-                  '${currentQuestion}/${widget.totalQuestions} completed',
-                  style: const TextStyle(
+                  '$currentQuestion/${widget.totalQuestions} completed',
+                  style: TextStyle(
                     fontSize: 16,
-                    fontWeight: FontWeight.w600,
-                    color: Colors.black,
+                    fontWeight: FontWeight.w500,
+                    color: Colors.grey.shade600,
                   ),
-                ),
-              ),
-
-              const SizedBox(height: 34),
-
-              // Heading
-              const Center(
-                child: Text(
-                  "Solve these problems to\ndismiss the alarm",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
                 ),
               ),
 
               const SizedBox(height: 70),
 
-              // Math question
-              Center(
+              // Title
+              const Center(
                 child: Text(
-                  challenge['question'],
+                  "Solve these problems to\ndismiss the alarm",
+                  textAlign: TextAlign.center,
                   style: TextStyle(
-                    fontSize: 28,
-                    fontWeight: FontWeight.w600,
-                    color: Colors.black,
+                    fontSize: 22,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black87,
+                  ),
+                ),
+              ),
+
+              const SizedBox(height: 30),
+
+              // Math question card
+              Center(
+                child: Container(
+                  width: double.infinity,
+                  padding:
+
+                      const EdgeInsets.symmetric(horizontal: 18, vertical: 20),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(14),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.05),
+                        blurRadius: 8,
+                        offset: const Offset(0, 4),
+                      ),
+                    ],
+                  ),
+                  child: Text(
+                    challenge['question'],
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(
+                      fontSize: 28,
+                      fontWeight: FontWeight.w600,
+                      height: 1.4,
+                    ),
                   ),
                 ),
               ),
 
               const SizedBox(height: 40),
 
-              // Dynamic answer input box
+              // Answer input field
               TextField(
                 controller: _answerController,
                 keyboardType: TextInputType.number,
                 minLines: 1,
-                maxLines: 5,
+                maxLines: 3,
                 decoration: InputDecoration(
                   hintText: "Enter your answer",
                   filled: true,
                   fillColor: Colors.white,
-                  contentPadding: const EdgeInsets.symmetric(
-                    horizontal: 16,
-                    vertical: 16,
-                  ),
+                  hintStyle: TextStyle(color: Colors.grey.shade500),
+                  contentPadding:
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
                   border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12),
-                    borderSide: const BorderSide(color: Colors.black12),
+                    borderRadius: BorderRadius.circular(14),
+                    borderSide: BorderSide.none,
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(14),
+                    borderSide: BorderSide(color: Colors.deepPurple, width: 1.2),
                   ),
                 ),
               ),
 
-              const SizedBox(height: 162),
+              const Spacer(),
 
               // Submit button
               Center(
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.pink.shade400,
+                    backgroundColor: Colors.deepPurple,
+                    foregroundColor: Colors.white,
                     padding: const EdgeInsets.symmetric(
-                      horizontal: 32,
-                      vertical: 16,
-                    ),
+                        horizontal: 38, vertical: 16),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(30),
                     ),
+                    elevation: 4,
+                    shadowColor: Colors.deepPurple.withOpacity(0.3),
                   ),
-                  onPressed: () {
-                    int userAnswer = int.tryParse(_answerController.text) ?? 0;
-                    if (userAnswer == challenge['answer']) {
-                      // If the answer is correct, generate a new challenge
-                      setState(() {
-                        currentQuestion++;
-                        if (currentQuestion <= widget.totalQuestions) {
-                          challenge = generateMathChallenge();
-                          _answerController.clear();
-                        } else {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              content: const Text("Good job! Alarm dismissed!"),
-                            ),
-                          );
-                          Alarm.stopAll();
-                          Navigator.of(
-                            context,
-                          ).pop(); // Go back to the previous screen
-                        }
-                      });
-                      // Show an error message or handle incorrect answer
-                    } else {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: const Text("Incorrect answer, try again!"),
-                        ),
-                      );
-                    }
-                  },
+                  onPressed: _handleSubmit,
                   child: const Text(
                     "Submit Answer",
-                    style: TextStyle(fontSize: 16, color: Colors.white),
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
                   ),
                 ),
               ),
+
+              const SizedBox(height: 70),
             ],
           ),
         ),
       ),
     );
+  }
+
+  void _handleSubmit() {
+    int userAnswer = int.tryParse(_answerController.text) ?? 0;
+    if (userAnswer == challenge['answer']) {
+      setState(() {
+        currentQuestion++;
+        if (currentQuestion <= widget.totalQuestions) {
+          challenge = generateMathChallenge();
+          _answerController.clear();
+        } else {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text("Good job! Alarm dismissed!")),
+          );
+          Alarm.stopAll();
+          Navigator.pop(context);
+        }
+      });
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text("Incorrect answer, try again!")),
+      );
+    }
   }
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:wakeup/screens/alarm/alarmlistscreen.dart';
 import 'package:wakeup/screens/stopwatch/StopWatchScreen.dart';
 
 class Firstsplash extends StatefulWidget {
@@ -13,10 +14,10 @@ class _FirstsplashState extends State<Firstsplash> {
   @override
   void initState() {
     super.initState();
-    Future.delayed(const Duration(milliseconds: 1100), () {
+    Future.delayed(const Duration(milliseconds: 9100), () {
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => const StopwatchScreen()),
+        MaterialPageRoute(builder: (context) => const AlarmListScreen()),
       );
     });
   }
@@ -27,34 +28,12 @@ class _FirstsplashState extends State<Firstsplash> {
       backgroundColor: Colors.white,
       body: Center(
         child: Container(
-          height: 250,
-          decoration: const BoxDecoration(
-            shape: BoxShape.circle,
-            color: Colors.blue,
-          ),
-          child: Center(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  'WakeUp',
-                  style: GoogleFonts.raleway(
-                    color: Colors.white,
-                    fontSize: 44,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                const SizedBox(height: 23),
-                Text(
-                  'Great Days Begin  with\n     Great Mornings',
-                  style: GoogleFonts.raleway(
-                    color: Colors.white,
-                    fontSize: 14,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ],
+          child: Text(
+            'RiseWise',
+            style: TextStyle(
+              color: Colors.blue,
+              fontSize: 54,
+              fontStyle: FontStyle.italic,
             ),
           ),
         ),

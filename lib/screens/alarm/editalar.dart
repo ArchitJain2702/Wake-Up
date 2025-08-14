@@ -245,7 +245,7 @@ class EditAlarmState extends State<EditAlarm> {
                 },
                 // You handle this
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.red.shade200,
+                  backgroundColor: Colors.blue.shade100,
                   foregroundColor: Colors.black,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(20),
@@ -253,9 +253,14 @@ class EditAlarmState extends State<EditAlarm> {
                 ),
                 child: Text('Set Challenge'),
               ),
-              ElevatedButton(
+              ElevatedButton( 
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all(Colors.white),
+                ),
                 onPressed: (){},
-                 child: Text(widget.alarm.challengename.toString().split('.').last),
+                 child: Text(widget.alarm.challengename.toString().split('.').last,
+                 style: TextStyle(color: Colors.black),
+                 ),
                   ),
 
               Spacer(),

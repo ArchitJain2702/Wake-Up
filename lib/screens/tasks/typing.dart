@@ -11,10 +11,12 @@ class SentenceTypingChallengeScreen extends StatefulWidget {
   });
 
   @override
-  State<SentenceTypingChallengeScreen> createState() => _SentenceTypingChallengeScreenState();
+  State<SentenceTypingChallengeScreen> createState() =>
+      _SentenceTypingChallengeScreenState();
 }
 
-class _SentenceTypingChallengeScreenState extends State<SentenceTypingChallengeScreen> {
+class _SentenceTypingChallengeScreenState
+    extends State<SentenceTypingChallengeScreen> {
   final TextEditingController _sentenceController = TextEditingController();
   late String targetSentence;
   int currentQuestion = 1;
@@ -28,57 +30,71 @@ class _SentenceTypingChallengeScreenState extends State<SentenceTypingChallengeS
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.pink.shade50,
+      backgroundColor: Colors.grey.shade100,
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 16),
+          padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 16),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const SizedBox(height: 8),
-
               // Progress text
               Center(
                 child: Text(
                   '$currentQuestion/${widget.totalQuestions} completed',
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontSize: 16,
-                    fontWeight: FontWeight.w600,
-                    color: Colors.black,
+                    fontWeight: FontWeight.w500,
+                    color: Colors.grey.shade600,
                   ),
                 ),
               ),
 
-              const SizedBox(height: 34),
+              const SizedBox(height: 70),
 
               // Title
               const Center(
                 child: Text(
-                  "Type it upp...",
-                  style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-                ),
-              ),
-
-              const SizedBox(height: 16),
-
-              // Subtitle
-
-              const SizedBox(height: 40),
-
-              // Sentence to type
-              Center(
-                child: Text(
-                  targetSentence,
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.w600,
-                    color: Colors.black,
+                  "Type it up...",
+                  style: TextStyle(
+                    fontSize: 26,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black87,
+                    letterSpacing: 0.5,
                   ),
                 ),
               ),
 
-              const SizedBox(height: 90),
+              const SizedBox(height: 20),
+
+              // Sentence card
+              Center(
+                child: Container(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 18, vertical: 20),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(14),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.05),
+                        blurRadius: 8,
+                        offset: const Offset(0, 4),
+                      ),
+                    ],
+                  ),
+                  child: Text(
+                    targetSentence,
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w600,
+                      height: 1.4,
+                    ),
+                  ),
+                ),
+              ),
+
+              const SizedBox(height: 50),
 
               // Input field
               TextField(
@@ -88,36 +104,48 @@ class _SentenceTypingChallengeScreenState extends State<SentenceTypingChallengeS
                 autocorrect: false,
                 textCapitalization: TextCapitalization.none,
                 decoration: InputDecoration(
-                  hintText: "Type the sentence here",
+                  hintText: "Type the sentence here...",
                   filled: true,
                   fillColor: Colors.white,
-                  contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+                  hintStyle: TextStyle(color: Colors.grey.shade500),
+                  contentPadding:
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
                   border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12),
-                    borderSide: const BorderSide(color: Colors.black12),
+                    borderRadius: BorderRadius.circular(14),
+                    borderSide: BorderSide.none,
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(14),
+                    borderSide: BorderSide(color: Colors.deepPurple, width: 1.2),
                   ),
                 ),
               ),
 
-              const SizedBox(height: 110),
+              const Spacer(),
 
               // Submit button
               Center(
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.red,
-                    padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
+                    backgroundColor: Colors.deepPurple,
+                    foregroundColor: Colors.white,
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 38, vertical: 16),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(30),
                     ),
+                    elevation: 4,
+                    shadowColor: Colors.deepPurple.withOpacity(0.3),
                   ),
                   onPressed: _handleSubmit,
                   child: const Text(
                     "Submit",
-                    style: TextStyle(fontSize: 16, color: Colors.white),
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
                   ),
                 ),
               ),
+
+              const SizedBox(height: 70),
             ],
           ),
         ),

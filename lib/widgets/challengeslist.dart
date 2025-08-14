@@ -14,8 +14,8 @@ Widget ChallengeList(BuildContext context) =>Container(
       Text('Select Challenge',),
       xyz('Maths',context),
       xyz('Memory',context),
-      xyz('Focus',context),
-      xyz('Reaction',context),
+      xyz('Typing',context),
+      xyz('DSA',context),
     ],
   ),
 );

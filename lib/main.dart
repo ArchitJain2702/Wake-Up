@@ -3,9 +3,9 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:wakeup/screens/alarm/alarmlistscreen.dart';
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:alarm/alarm.dart';
-import 'package:wakeup/screens/alarm/editalar.dart';
-import 'package:wakeup/screens/alarm/setalarm.dart';
-import 'package:wakeup/screens/stopwatch/StopWatchScreen.dart';
+import 'package:wakeup/screens/firstsplash/firstsplash.dart';
+import 'package:wakeup/screens/tasks/memory.dart';
+import 'package:wakeup/screens/tasks/dsa.dart';
 import 'package:wakeup/screens/tasks/maths.dart';
 import 'package:wakeup/screens/tasks/typing.dart';
 
@@ -17,6 +17,7 @@ void main() async {
   tz.initializeTimeZones();
   WidgetsFlutterBinding.ensureInitialized();
   await Alarm.init();
+  await Alarm.stopAll();
 
   runApp(const ClockApp());
 }
@@ -69,7 +70,7 @@ class AlarmHomeWrapperState extends State<AlarmHomeWrapper>
         Navigator.of(context).push(
           MaterialPageRoute(
             builder: (context) =>
-                SentenceTypingChallengeScreen(totalQuestions: 2),
+                MemoryChallengeScreen(totalQuestions: 2),
           ),
         );
       });
@@ -78,6 +79,6 @@ class AlarmHomeWrapperState extends State<AlarmHomeWrapper>
 
   @override
   Widget build(BuildContext context) {
-    return SentenceTypingChallengeScreen(totalQuestions: 2);
+    return Firstsplash();
   }
 }
